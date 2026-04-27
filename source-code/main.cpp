@@ -290,50 +290,70 @@ void menuUtama() {
     int pilihan; 
     
     do {
-        cout << "\n=== Menu Utama ===" << endl;
-        cout << "1. Login" << endl; 
-        cout << "2. Register" << endl; 
-        cout << "0. Keluar" << endl;
-        
-        cout << "Masukkan Pilihan Anda" << endl; 
-        cout << "> "; cin >> pilihan; 
-
-        pilihan = errorHandling(pilihan); 
-
-        if (pilihan == 0) {
-            cout << "=> Keluar Dari Program!" << endl;
-            break; 
-        }
-        else if (pilihan == 1) {
-            cout << "=> Mengarahkan ke 'Menu Login'" << endl;
-            int indeksUser = login(akun, jumlahPengguna);
+        try {
+            cout << "\n=== Menu Utama ===" << endl;
+            cout << "1. Login" << endl; 
+            cout << "2. Register" << endl; 
+            cout << "0. Keluar" << endl;
             
-            if (indeksUser >= 0) {
-                cout << "=> Mengarahkan ke menu selanjutnya" << endl;
-                cout << "---------------------------------------------------------" << endl;
-                if (akun[indeksUser].isAdmin) { 
-                    menuAdmin(indeksUser);
+            cout << "Masukkan Pilihan Anda" << endl; 
+            cout << "> "; cin >> pilihan; 
+
+            // pilihan = errorHandling(pilihan); 
+
+            if (cin.fail()) {
+                cin.clear();
+                while (cin.peek() != '\n') {
+                    cin.ignore();
+                }
+
+                pilihan = -1; 
+                throw invalid_argument("Input Harus Angka!");
+            }
+
+            if (pilihan > 2 || pilihan < 0) {
+                throw length_error("Pilihan Tidak Valid");
+            }
+
+            if (pilihan == 0) {
+                cout << "=> Keluar Dari Program!" << endl;
+                break; 
+            }
+            else if (pilihan == 1) {
+                cout << "=> Mengarahkan ke 'Menu Login'" << endl;
+                int indeksUser = login(akun, jumlahPengguna);
+                
+                if (indeksUser >= 0) {
+                    cout << "=> Mengarahkan ke menu selanjutnya" << endl;
+                    cout << "---------------------------------------------------------" << endl;
+                    if (akun[indeksUser].isAdmin) { 
+                        menuAdmin(indeksUser);
+                    } 
+                    else {
+                        menuUser(indeksUser);
+                    }
                 } 
                 else {
-                    menuUser(indeksUser);
-                }
-            } 
-            else {
-                cout << "=> Keluar dari program" << endl;
-                cout << "---------------------------------------------------------" << endl;
-                cout << "===               Kesempatan Login Habis              ===" << endl;
-                cout << "================= Silakan Ulang Program =================" << endl;
-                pilihan = 0; 
+                    cout << "=> Keluar dari program" << endl;
+                    cout << "---------------------------------------------------------" << endl;
+                    cout << "===               Kesempatan Login Habis              ===" << endl;
+                    cout << "================= Silakan Ulang Program =================" << endl;
+                    pilihan = 0; 
 
-                cout << endl;
-            } 
+                    cout << endl;
+                } 
+            }
+            else if (pilihan == 2) {
+                cout << "=> Mengarahkan ke 'Menu Register'" << endl;
+                regis(akun, jumlahPengguna); 
+            }
+            else {
+                cout << "=> Pilihan Tidak Valid!" << endl;
+            }
         }
-        else if (pilihan == 2) {
-            cout << "=> Mengarahkan ke 'Menu Register'" << endl;
-            regis(akun, jumlahPengguna); 
-        }
-        else {
-            cout << "=> Pilihan Tidak Valid!" << endl;
+    
+        catch (const exception& e) {
+            cout << "Error: " << e.what() << endl;
         }
 
     } while (pilihan != 0);
