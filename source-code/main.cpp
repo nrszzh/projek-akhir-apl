@@ -1,6 +1,22 @@
 #include <iostream>
 using namespace std; 
 
+struct BendaLangit {
+    int entriID; 
+    string namaObjek; 
+    string klasifikasi; // Bintang, Planet, Asteroid, Nebula
+    string konstelasi; // Objek berada di konstelasi mana
+    string jarakDariBumi; // Jarak dari Bumi (dalam Light-Year)
+    string tahunPenemuan; // Tahun Penemuan Benda Langit
+    string statusObservasi; // "Dalam Pengamatan", "Selesai Pengamatan", "Pengamatan Ditunda"
+    string magnitudo; // Cahaya yang dipancarkan oleh Benda Langit
+};
+
+const int MAXENTRI = 100; 
+BendaLangit entri[MAXENTRI]; 
+int jumlahEntri = 10; 
+int uniqueEntri = jumlahEntri;
+
 struct Pengguna {
     int userID; 
     string username; 
@@ -30,6 +46,29 @@ int errorHandling(int pilihan) {
     return pilihan;
 }
 
+void entriAwal(BendaLangit arr[], int &ukuran) {
+    BendaLangit temp[] {
+        {1, "Sirius", "Bintang", "Canis Major", "8.6 LY", "Zaman Kuno", "Selesai Pengamatan", "-1.46"}, 
+        {2, "Betelgeuse", "Bintang", "Orion", "700 LY", "Zaman Kuno", "Dalam Pengamatan", "0.42"}, 
+        {3, "Jupiter", "Planet", "N/A (Tata Surya)", "0.00008 LY", "Zaman Kuno", "Selesai Pengamatan", "-2.94"},
+        {4, "Andromeda", "Galaksi", "Andromeda", "2.537 Juta LY", "964 M", "Dalam Pengamatan", "3.44"},
+        {5, "Ceres", "Asteroid", "N/A (Sabuk Asteroid)", "0.00028 LY", "1801", "Selesai Pengamatan", "6.64"},
+        {6, "Crab Nebula", "Nebula", "Taurus", "6,500 LY", "1054", "Dalam Pengamatan", "8.4"},
+        {7, "Proxima Centauri", "Bintang", "Centaurus", "4.24 LY", "1915", "Selesai Pengamatan", "11.13"},
+        {8, "Saturnus", "Planet", "N/A (Tata Surya)", "0.00015 LY", "Zaman Kuno", "Selesai Pengamatan", "0.46"},
+        {9, "Pillar of Creation", "Nebula", "Serpens", "6,500 - 7,000 LY", "1920", "Pengamatan Ditunda", "N/A"},
+        {10, "Vega", "Bintang", "Lyra", "25 LY", "Zaman Kuno", "Selesai Pengamatan", "0.03"}
+    }; 
+
+    int n = sizeof(temp) / sizeof(temp[0]); 
+
+    for (int i = 0; i < n; i++) {
+        arr[i] = temp[i];
+    }
+
+    ukuran = n; 
+}
+
 void penggunaAwal(Pengguna arr[], int &ukuran) {
     Pengguna temp[] = {
         {1, "Yoga", "017", true}, 
@@ -44,6 +83,67 @@ void penggunaAwal(Pengguna arr[], int &ukuran) {
     }
 
     ukuran = n; 
+}
+
+
+void tambahEntri(BendaLangit newEntri[], int &ukuran) {
+    int pilihan; 
+     
+    if (ukuran >= MAXENTRI) {
+        cout << "=> Data Entri sudah Penuh!" << endl; 
+        system("pause");
+        return; 
+    }
+
+    cout << "\n=== BUAT ENTRI BARU ===" << endl; 
+    string newObjek, newKlasifikasi, newKonstelasi, newJarak, newTahun, newStatus, newMagnitudo;
+
+    cin.ignore(); 
+    cout << "Masukkan Nama Objek: "; getline(cin, newObjek); 
+    cout << "Masukkan Klasifikasi Objek: "; getline(cin, newKlasifikasi); 
+    cout << "Masukkan Konstelasi: "; getline(cin, newKonstelasi); 
+    cout << "Masukkan Jarak Dari Bumi: "; getline(cin, newJarak); 
+    cout << "Masukkan Tahun Ditemukan: "; getline(cin, newJarak); 
+    cout << "Masukkan Status Observasi: "; getline(cin, newStatus); 
+    cout << "Masukkan Magnitudo Objek: "; getline(cin, newMagnitudo); 
+
+    newEntri[jumlahEntri].entriID = uniqueEntri + 1;
+    newEntri[jumlahEntri].namaObjek = newObjek;
+    newEntri[jumlahEntri].klasifikasi = newKlasifikasi;
+    newEntri[jumlahEntri].konstelasi = newKonstelasi;
+    newEntri[jumlahEntri].jarakDariBumi = newJarak;
+    newEntri[jumlahEntri].tahunPenemuan = newTahun;
+    newEntri[jumlahEntri].statusObservasi = newStatus;
+    newEntri[jumlahEntri].magnitudo = newMagnitudo;
+    jumlahEntri++; uniqueEntri++; 
+
+    cout << "\n=> Entri Berhasil ditambahkan" << endl; 
+    system("pause");
+    return; 
+}
+
+void lihatEntriShort(BendaLangit entriTerdaftar[], int ukuran) {
+    if (jumlahEntri == 0) {
+        cout << "=> Tidak ada Entri yang Tersimpan!" << endl; 
+        system("pause"); 
+        return; 
+    }
+
+    cout << "\n=== DAFTAR SINGKAT ENTRI ===" << endl; 
+    cout << "ID | Nama Objek | Klasifikasi | Konstelasi" << endl; 
+    for (int i = 0; i < ukuran; i++) {
+        if (i % 5 == 0 && i != 0) {
+            cout << "--------------------------------------------------------------------------" << endl;
+        }
+
+        cout << entri[i].entriID
+            << " | " << entri[i].namaObjek
+            << " | " << entri[i].klasifikasi
+            << " | " << entri[i].konstelasi
+            << endl; 
+    }
+
+    system("pause");
 }
 
 int regis(Pengguna *ptrAkun, int &jumlahPengguna) {
@@ -174,6 +274,51 @@ int login(Pengguna *ptrAkun, int jumlahPengguna) {
     }
 }
 
+void menuRead () {
+    int pilihan; 
+    
+    do {
+        try {
+            cout << "\n=== MENU READ ===" << endl; 
+            cout << "1. Lihat Seluruh Entri" << endl; 
+            cout << "2. Lihat Entri Spesifik" << endl; 
+            cout << "-------------------------------------------" << endl; 
+            
+            cout << "0. Kembali" << endl; 
+            cout << "Masukkan Pilihan Anda" << endl; 
+            cout << "> "; cin >> pilihan; 
+
+            if (cin.fail()) {
+                cin.clear(); 
+                while (cin.peek() != '\n') {
+                    cin.ignore();
+                }
+                pilihan = -1; 
+                throw invalid_argument("Input Harus Berupa Angka!"); 
+            }
+
+            if (pilihan > 2 || pilihan < 0) {
+                throw length_error("Angka yang Dimasukkan Melebihi Range Menu!"); 
+            }
+
+            if (pilihan == 0) {
+                cout << "=> Kembali ke Menu Sebelumnya" << endl; 
+            }
+            else if (pilihan == 1) {
+                cout << "=> Menampilkan Seluruh Entri" << endl; 
+                lihatEntriShort(entri, jumlahEntri);
+            }
+            else if (pilihan == 2) {
+                cout << "=> Menampilkan Entri Spesifik" << endl; 
+            }
+        }
+
+        catch (const exception& e) {
+            cout << "Error: " << e.what() << endl; 
+        }
+
+    } while (pilihan != 0);
+}
 
 void menuSort() {
     int pilihan;
@@ -302,7 +447,8 @@ void menuUser(int indeksLogin) {
             break; 
         }
         else if (pilihan == 1) {
-            cout << "=> Mengarahkan ke Menu 'Lihat Entri'" << endl; 
+            cout << "=> Mengarahkan ke Menu 'Lihat Entri'" << endl;
+            menuRead(); 
         }
         else if (pilihan == 2) {
             cout << "=> Mengarahkan ke Menu 'Urutkan Entri'" << endl;
@@ -353,10 +499,12 @@ void menuAdmin(int indeksLogin) {
             break;  
         }
         else if (pilihan == 1) {
-            cout << "=> Mengarahkan ke Menu 'Tambah Entri'" << endl; 
+            cout << "=> Mengarahkan ke Menu 'Tambah Entri'" << endl;
+            tambahEntri(entri, jumlahEntri); 
         }
         else if (pilihan == 2) {
-            cout << "=> Mengarahkan ke Menu 'Lihat Entri'" << endl; 
+            cout << "=> Mengarahkan ke Menu 'Lihat Entri'" << endl;
+            menuRead(); 
         }
         else if (pilihan == 3) {
             cout << "=> Mengarahkan ke Menu 'Perbarui Entri'" << endl;
@@ -465,6 +613,7 @@ void menuUtama() {
 
 int main() {
     penggunaAwal(akun, jumlahPengguna);
+    entriAwal(entri, jumlahEntri);
     menuUtama(); 
     cout << endl;
 
