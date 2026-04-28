@@ -33,7 +33,8 @@ int errorHandling(int pilihan) {
 void penggunaAwal(Pengguna arr[], int &ukuran) {
     Pengguna temp[] = {
         {1, "Yoga", "017", true}, 
-        {2, "Pirlo", "008", false}
+        {2, "Pirlo", "008", false}, 
+        {3, "Nur", "018", false}
     };
 
     int n = sizeof(temp) / sizeof(temp[0]); 
@@ -173,6 +174,108 @@ int login(Pengguna *ptrAkun, int jumlahPengguna) {
     }
 }
 
+
+void menuSort() {
+    int pilihan;
+
+    do {
+        try {
+            cout << "\n=== MENU SORT ===" << endl; 
+            cout << "1. Urutkan Berdasarkan Jarak" << endl; 
+            cout << "2. Urutkan Berdasarkan Nama" << endl; 
+            cout << "3. Urutkan Berdasarkan Tahun Penemuan" << endl; 
+            cout << "4. Urutkan Berdasarkan Magnitudo" << endl; 
+            cout << "--------------------------------------" << endl; 
+            cout << "0. Kembali" << endl; 
+
+            cout << "Masukkan Pilihan Anda" << endl; 
+            cout << "> "; cin >> pilihan; 
+
+            if (cin.fail()) {
+                cin.clear(); 
+                while (cin.peek() != '\n') {
+                    cin.ignore();
+                }
+
+                pilihan = -1; 
+                throw invalid_argument("Input Harus Berupa Angka!");
+            }
+
+            if (pilihan > 4 || pilihan < 0) {
+                throw length_error("Angka yang Dimasukkan diluar Range Menu!");
+            }
+
+            if (pilihan == 0) {
+                cout << "=> Kembali ke Menu Sebelumnya" << endl;
+            }
+            else if (pilihan == 1) {
+                cout << "=> Mengurutkan Berdasarkan Jarak" << endl;
+            }
+            else if (pilihan == 2) {
+                cout << "=> Mengurutkan Berdasarkan Nama" << endl; 
+            }
+            else if (pilihan == 3) {
+                cout << "=> Mengurutkan Berdasarkan Tahun Penemuan" << endl; 
+            }
+            else if (pilihan == 4) {
+                cout << "=> Mengurutkan Berdasarkan Magnitudo" << endl;
+            }
+        }
+
+        catch (const exception& e) {
+            cout << "Error: " << e.what() << endl;
+        }
+    } while (pilihan != 0);
+}
+
+void menuSearch() {
+    int pilihan;
+
+    do {
+        try {
+            cout << "\n=== MENU SORT ===" << endl; 
+            cout << "1. Cari Berdasarkan Nama" << endl;
+            cout << "2. Cari Berdasarkan Kategori" << endl; 
+            cout << "3. Cari Berdasarkan Konstelasi" << endl; 
+            cout << "---------------------------------------------" << endl; 
+            cout << "0. Kembali" << endl; 
+            cout << "Masukkan Pilihan Anda" << endl; 
+            cout << "> "; cin >> pilihan; 
+
+            if (cin.fail()) {
+                cin.clear(); 
+                while (cin.peek() != '\n') {
+                    cin.ignore();
+                }
+                pilihan = -1;
+                throw invalid_argument("Input Harus Berupa Angka!");
+            }
+
+            if (pilihan > 3 || pilihan < 0) {
+                throw length_error("Angka yang Dimasukkan Melebihi Range Menu!");
+            }
+
+            if (pilihan == 0) {
+                cout << "=> Kembali ke Menu Sebelumnya" << endl; 
+            }
+            else if (pilihan == 1) {
+                cout << "=> Mencari Entri Berdasarkan Nama" << endl;
+            }
+            else if (pilihan == 2) {
+                cout << "=> Mencari Entri Berdasarkan Kategori" << endl;
+            }   
+            else if (pilihan == 3) {
+                cout << "=> Mencari Entri Berdasarkan Konstelasi" << endl;
+            }
+        }
+
+        catch (const exception& e) {
+            cout << "Error: " << e.what() << endl; 
+        }
+
+    } while (pilihan != 0);
+}
+
 void menuUser(int indeksLogin) {
     int pilihan; 
     
@@ -202,10 +305,12 @@ void menuUser(int indeksLogin) {
             cout << "=> Mengarahkan ke Menu 'Lihat Entri'" << endl; 
         }
         else if (pilihan == 2) {
-            cout << "=> Mengarahkan ke Menu 'Urutkan Entri'" << endl; 
+            cout << "=> Mengarahkan ke Menu 'Urutkan Entri'" << endl;
+            menuSort();
         }
         else if (pilihan == 3) {
-            cout << "=> Mengarahkan ke Menu 'Cari Entri'" << endl; 
+            cout << "=> Mengarahkan ke Menu 'Cari Entri'" << endl;
+            menuSearch(); 
         }
         else if (pilihan == 4) {
             cout << "=> Mengarahkan ke Menu 'Perbarui Data Pribadi'" << endl;
@@ -260,12 +365,13 @@ void menuAdmin(int indeksLogin) {
             cout << "=> Mengarahkan ke Menu 'Hapus Entri'" << endl;
         }
         else if (pilihan == 5) {
-            cout << "=> Mengarahkan ke Menu 'Urutkan Entri'" << endl; 
+            cout << "=> Mengarahkan ke Menu 'Urutkan Entri'" << endl;
+            menuSort();
         }
         else if (pilihan == 6) {
-            cout << "=> Mengarahkan ke Menu 'Cari Entri'" << endl; 
+            cout << "=> Mengarahkan ke Menu 'Cari Entri'" << endl;
+            menuSearch();
         }
-
         else if (pilihan == 7) {
             cout << "=> Mengarahkan ke Menu 'Tambah Akun'" << endl;
             regis(akun, jumlahPengguna);
@@ -298,8 +404,6 @@ void menuUtama() {
             
             cout << "Masukkan Pilihan Anda" << endl; 
             cout << "> "; cin >> pilihan; 
-
-            // pilihan = errorHandling(pilihan); 
 
             if (cin.fail()) {
                 cin.clear();
