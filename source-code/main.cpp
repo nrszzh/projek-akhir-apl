@@ -185,7 +185,44 @@ void lihatSeluruhEntri(BendaLangit entriTerdaftar[], int ukuran) {
 }
 
 // [2] Read Entri Spesifik
-// --- Insert Kode Disini ---
+void lihatSpesifik(BendaLangit entriTerdaftar[], int ukuran) {
+    if (ukuran == 0) {
+        cout << "\n=> Data Entri kosong!" << endl;
+        system("pause");
+        return;
+    }
+
+    lihatSeluruhEntri(entriTerdaftar, ukuran);
+
+    int idSpesifik;
+    cout << "\nMasukkan ID untuk detail lengkap: ";
+    cin >> idSpesifik;
+
+    bool ditemukan = false;
+    for (int i = 0; i < ukuran; i++) {
+        if (entriTerdaftar[i].entriID == idSpesifik) {
+            cout << "\n==========================================" << endl;
+            cout << "      DETAIL LENGKAP OBJEK ASTRONOMI      " << endl;
+            cout << "==========================================" << endl;
+            cout << "ID Entri       : " << entriTerdaftar[i].entriID << endl;
+            cout << "Nama Objek     : " << entriTerdaftar[i].namaObjek << endl;
+            cout << "Klasifikasi    : " << entriTerdaftar[i].klasifikasi << endl;
+            cout << "Konstelasi     : " << entriTerdaftar[i].konstelasi << endl;
+            cout << "Jarak          : " << entriTerdaftar[i].jarakDariBumi << endl;
+            cout << "Tahun Temu     : " << entriTerdaftar[i].tahunPenemuan << endl;
+            cout << "Status         : " << entriTerdaftar[i].statusObservasi << endl;
+            cout << "Magnitudo      : " << entriTerdaftar[i].magnitudo << endl;
+            cout << "==========================================" << endl;
+            ditemukan = true;
+            break;
+        }
+    }
+    if (!ditemukan) {
+        cout << "\n=> ID " << idSpesifik << " tidak ditemukan" << endl;
+    }
+    
+    system("pause");
+}
 
 // --- UPDATE ---
 // --- Insert Kode Disini ---
@@ -591,6 +628,7 @@ void menuRead () {
             }
             else if (pilihan == 2) {
                 cout << "=> Menampilkan Entri Spesifik" << endl; 
+                lihatSpesifik(entri, jumlahEntri);
             }
         }
 
