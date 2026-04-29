@@ -191,7 +191,34 @@ void lihatSeluruhEntri(BendaLangit entriTerdaftar[], int ukuran) {
 // --- Insert Kode Disini ---
 
 // --- DELETE ---
-// --- Insert Kode Disini ---
+void hapusEntri() {
+    if (jumlahEntri == 0) {
+        cout << "=> Tidak ada data" << endl;
+        system("pause");
+        return;
+    }
+    lihatSeluruhEntri(entri, jumlahEntri);
+    int idHapus;
+    cout << "Masukkan ID yang ingin dihapus: "; 
+    cin >> idHapus;
+    int idx = -1;
+    for (int i = 0; i < jumlahEntri; i++) {
+        if (entri[i].entriID == idHapus) { 
+            idx = i;
+            break; }
+    }
+    if (idx != -1) {
+        char konfirmasi;
+        cout << "Yakin hapus " << entri[idx].namaObjek << "? (y/n): "; 
+        cin >> konfirmasi;
+        if (konfirmasi == 'y' || konfirmasi == 'Y') {
+            for (int j = idx; j < jumlahEntri - 1; j++) entri[j] = entri[j + 1];
+            jumlahEntri--;
+            cout << "=> " << entri[idx].namaObjek<< " Berhasil dihapus!" << endl;
+        }
+    } else cout << "=> ID tidak ditemukan!" << endl;
+    system("pause");
+}
 
 // ============================================================
 // --- SECTION 5 — FUNGSI SORTING & SEARCH --------------------
@@ -451,6 +478,7 @@ void menuAdmin(int indeksLogin) {
         }
         else if (pilihan == 4) {
             cout << "=> Mengarahkan ke Menu 'Hapus Entri'" << endl;
+            hapusEntri();
         }
         else if (pilihan == 5) {
             cout << "=> Mengarahkan ke Menu 'Urutkan Entri'" << endl;
