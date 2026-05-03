@@ -134,69 +134,97 @@ void perbaruiEntri(BendaLangit arr[], int ukuran) {
         return;
     }
     
-    cout << "\nEntri ditemukan: " << (arr+indeks)->namaObjek << endl;
-    cout << "Pilih field yang ingin diperbarui:" << endl;
-    cout << "1. Nama Objek" << endl;
-    cout << "2. Klasifikasi" << endl;
-    cout << "3. Konstelasi" << endl;
-    cout << "4. Jarak Dari Bumi" << endl;
-    cout << "5. Tahun Penemuan" << endl;
-    cout << "6. Status Observasi" << endl;
-    cout << "7. Magnitudo" << endl;
-    cout << "Masukkan pilihan: ";
     int pilihanField;
-    cin >> pilihanField;
-    errorHandling(pilihanField);
-    cin.ignore();
-    
-    string nilaiBaru;
-    switch(pilihanField) {
-        case 1:
-            cout << "Masukkan Nama Objek baru: ";
-            getline(cin, nilaiBaru);
+    do {
+        cout << "\nEntri ditemukan: " << (arr+indeks)->namaObjek << endl;
+        cout << "Pilih field yang ingin diperbarui:" << endl;
+        cout << "1. Nama Objek" << endl;
+        cout << "2. Klasifikasi" << endl;
+        cout << "3. Konstelasi" << endl;
+        cout << "4. Jarak Dari Bumi" << endl;
+        cout << "5. Tahun Penemuan" << endl;
+        cout << "6. Status Observasi" << endl;
+        cout << "7. Magnitudo" << endl;
+        cout << endl; 
 
-            toUpperString(nilaiBaru);
+        cout << "0. Kembali" << endl; 
 
-            (arr+indeks)->namaObjek = nilaiBaru;
-            break;
-        case 2:
-            cout << "Masukkan Klasifikasi baru: ";
-            getline(cin, nilaiBaru);
-            (arr+indeks)->klasifikasi = nilaiBaru;
-            break;
-        case 3:
-            cout << "Masukkan Konstelasi baru: ";
-            getline(cin, nilaiBaru);
-            (arr+indeks)->konstelasi = nilaiBaru;
-            break;
-        case 4:
-            cout << "Masukkan Jarak Dari Bumi baru: ";
-            getline(cin, nilaiBaru);
-            (arr+indeks)->jarakDariBumi = nilaiBaru;
-            break;
-        case 5:
-            cout << "Masukkan Tahun Penemuan baru: ";
-            getline(cin, nilaiBaru);
-            (arr+indeks)->tahunPenemuan = nilaiBaru;
-            break;
-        case 6:
-            cout << "Masukkan Status Observasi baru: ";
-            getline(cin, nilaiBaru);
-            (arr+indeks)->statusObservasi = nilaiBaru;
-            break;
-        case 7:
-            cout << "Masukkan Magnitudo baru: ";
-            getline(cin, nilaiBaru);
-            (arr+indeks)->magnitudo = nilaiBaru;
-            break;
-        default:
-            cout << "=> Pilihan tidak valid!" << endl;
-            system("pause");
-            return;
-    }
-    
-    cout << "=> Entri berhasil diperbarui!" << endl;
-    system("pause");
+        cout << "Masukkan pilihan: ";
+        cin >> pilihanField;
+        errorHandling(pilihanField);
+        cin.ignore();
+        
+        string nilaiBaru;
+        switch(pilihanField) {
+            case 0: 
+                cout << "=> Kembali" << endl;
+                break;
+            case 1:
+                cout << "Masukkan Nama Objek baru: ";
+                getline(cin, nilaiBaru);
+
+                toUpperString(nilaiBaru);
+
+                (arr+indeks)->namaObjek = nilaiBaru;
+                cout << "=> Entri berhasil diperbarui!" << endl;
+                system("pause");
+
+                break;
+            case 2:
+                cout << "Masukkan Klasifikasi baru: ";
+                getline(cin, nilaiBaru);
+                (arr+indeks)->klasifikasi = nilaiBaru;
+                cout << "=> Entri berhasil diperbarui!" << endl;
+                system("pause");
+                
+                break;
+            case 3:
+                cout << "Masukkan Konstelasi baru: ";
+                getline(cin, nilaiBaru);
+                (arr+indeks)->konstelasi = nilaiBaru;
+                cout << "=> Entri berhasil diperbarui!" << endl;
+                system("pause");
+                
+                break;
+            case 4:
+                cout << "Masukkan Jarak Dari Bumi baru: ";
+                getline(cin, nilaiBaru);
+                (arr+indeks)->jarakDariBumi = nilaiBaru;
+                cout << "=> Entri berhasil diperbarui!" << endl;
+                system("pause");
+                
+                break;
+            case 5:
+                cout << "Masukkan Tahun Penemuan baru: ";
+                getline(cin, nilaiBaru);
+                (arr+indeks)->tahunPenemuan = nilaiBaru;
+                cout << "=> Entri berhasil diperbarui!" << endl;
+                system("pause");
+                
+                break;
+            case 6:
+                cout << "Masukkan Status Observasi baru: ";
+                getline(cin, nilaiBaru);
+                (arr+indeks)->statusObservasi = nilaiBaru;
+                cout << "=> Entri berhasil diperbarui!" << endl;
+                system("pause");
+
+                break;
+            case 7:
+                cout << "Masukkan Magnitudo baru: ";
+                getline(cin, nilaiBaru);
+                (arr+indeks)->magnitudo = nilaiBaru;
+                cout << "=> Entri berhasil diperbarui!" << endl;
+                system("pause");
+
+                break;
+            default:
+                cout << "=> Pilihan tidak valid!" << endl;
+                system("pause");
+        }
+        
+    } while (pilihanField != 0); 
+
 }
 
 // --- DELETE ---
