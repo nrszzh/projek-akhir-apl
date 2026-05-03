@@ -2,6 +2,7 @@
 #include "data.h"
 #include "utils.h"
 #include "crud_entri.h"
+#include "crud_akun.h"
 #include "sort_search.h"
 #include "auth.h"
 #include "menu.h"
@@ -142,7 +143,8 @@ void menuAdmin(int indeksLogin) {
             regis(akun, jumlahPengguna);
         }
         else if (pilihan == 8) {
-            cout << "=> Mengarahkan ke Menu 'Lihat Akun'" << endl; 
+            cout << "=> Mengarahkan ke Menu 'Lihat Akun'" << endl;
+            menu_read_akun();
         }
         else if (pilihan == 9) {
             cout << "=> Mengarahkan ke Menu 'Perbarui Akun'" << endl; 
@@ -247,6 +249,56 @@ void menuRead () {
 
         catch (const exception& e) {
             cout << "Error: " << e.what() << endl; 
+        }
+
+    } while (pilihan != 0);
+}
+
+void menu_read_akun() {
+    int pilihan; 
+    
+    do {
+        try {
+            cout << "\n=== MENU READ AKUN ===" << endl; 
+            cout << "1. Lihat Seluruh Akun" << endl; 
+            cout << "2. Lihat Akun Spesifik" << endl; 
+            cout << "-------------------------------------------" << endl; 
+            
+            cout << "0. Kembali" << endl; 
+            cout << "Masukkan Pilihan Anda" << endl; 
+            cout << "> ";
+            cin >> pilihan;
+
+            if (cin.fail()) {
+                cin.clear(); 
+                while (cin.peek() != '\n') {
+                    cin.ignore();
+                }
+                pilihan = -1; 
+                throw invalid_argument("Input Harus Berupa Angka!"); 
+            }
+
+            if (pilihan > 2 || pilihan < 0) {
+                throw length_error("Angka yang Dimasukkan Melebihi Range Menu!"); 
+            }
+
+            if (pilihan == 0) {
+                cout << "=> Kembali ke Menu Sebelumnya" << endl; 
+            }
+            else if (pilihan == 1) {
+                cout << "=> Menampilkan Seluruh Akun" << endl; 
+                lihatSeluruhAkun(akun, jumlahPengguna);
+                system("pause");
+            }
+            else if (pilihan == 2) {
+                cout << "=> Menampilkan Detail Akun Spesifik" << endl; 
+                lihatAkunSpesifik(akun, jumlahPengguna);
+            }
+        }
+
+        catch (const exception& e) {
+            cout << "Error: " << e.what() << endl; 
+            system("pause");
         }
 
     } while (pilihan != 0);

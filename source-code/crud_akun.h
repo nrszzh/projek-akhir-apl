@@ -1,6 +1,7 @@
 #ifndef CRUD_AKUN_H
 #define CRUD_AKUN_H
 
-
+void lihatSeluruhAkun(Pengguna *ptrAkun, int jumlahPengguna);
+void lihatAkunSpesifik(Pengguna *ptrAkun, int jumlahPengguna);
 
 #endif
