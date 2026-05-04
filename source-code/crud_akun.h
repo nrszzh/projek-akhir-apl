@@ -4,4 +4,7 @@
 void lihatSeluruhAkun(Pengguna *ptrAkun, int jumlahPengguna);
 void lihatAkunSpesifik(Pengguna *ptrAkun, int jumlahPengguna);
 
+void ubahAkun(Pengguna *ptrAkun, int jumlahPengguna);
+void hapusAkun(Pengguna *ptrAkun, int &jumlahPengguna);
+
 #endif
