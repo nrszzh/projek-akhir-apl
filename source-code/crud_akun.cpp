@@ -60,3 +60,67 @@ void lihatAkunSpesifik(Pengguna *ptrAkun, int ukuran) {
     }
     system("pause");
 }
+
+void ubahAkun(Pengguna *ptrAkun, int jumlahPengguna) {
+    if (jumlahPengguna == 0) {
+        cout << "=> Tidak ada Akun yang Tersimpan!" << endl;
+        system("pause");
+        return;
+    }
+
+    lihatSeluruhAkun(ptrAkun, jumlahPengguna);
+
+    int idAkun;
+    cout << "\nMasukkan User ID yang ingin diubah: ";
+    cin >> idAkun;
+
+    bool ditemukan = false;
+    for (int i = 0; i < jumlahPengguna; i++) {
+        if ((ptrAkun + i)->userID == idAkun) {
+            cout << "\n--- Ubah Data Akun ---" << endl;
+            cout << "Username baru   : "; cin >> (ptrAkun + i)->username;
+            cout << "Password baru   : "; cin >> (ptrAkun + i)->password;
+            char roleInput;
+            cout << "Role baru (A/U) : "; cin >> roleInput;
+            (ptrAkun + i)->isAdmin = (roleInput == 'A' || roleInput == 'a');
+            cout << "=> Data akun berhasil diperbarui!" << endl;
+            ditemukan = true;
+            break;
+        }
+    }
+    if (!ditemukan) {
+        cout << "\n=> User ID " << idAkun << " tidak ditemukan!" << endl;
+    }
+    system("pause");
+}
+
+void hapusAkun(Pengguna *ptrAkun, int &jumlahPengguna) {
+    if (jumlahPengguna == 0) {
+        cout << "=> Tidak ada Akun yang Tersimpan!" << endl;
+        system("pause");
+        return;
+    }
+
+    lihatSeluruhAkun(ptrAkun, jumlahPengguna);
+
+    int idAkun;
+    cout << "\nMasukkan User ID yang ingin dihapus: ";
+    cin >> idAkun;
+
+    bool ditemukan = false;
+    for (int i = 0; i < jumlahPengguna; i++) {
+        if ((ptrAkun + i)->userID == idAkun) {
+            for (int j = i; j < jumlahPengguna - 1; j++) {
+                *(ptrAkun + j) = *(ptrAkun + j + 1);
+            }
+            jumlahPengguna--;
+            cout << "=> Akun dengan ID " << idAkun << " berhasil dihapus!" << endl;
+            ditemukan = true;
+            break;
+        }
+    }
+    if (!ditemukan) {
+        cout << "\n=> User ID " << idAkun << " tidak ditemukan!" << endl;
+    }
+    system("pause");
+}

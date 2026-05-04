@@ -147,10 +147,12 @@ void menuAdmin(int indeksLogin) {
             menu_read_akun();
         }
         else if (pilihan == 9) {
-            cout << "=> Mengarahkan ke Menu 'Perbarui Akun'" << endl; 
+            cout << "=> Mengarahkan ke Menu 'Perbarui Akun'" << endl;
+            ubahAkun(akun, jumlahPengguna);
         }
         else if (pilihan == 10) {
             cout << "=> Mengarahkan ke Menu 'Hapus Akun'" << endl;
+            hapusAkun(akun, jumlahPengguna);
         }
         else {
             cout << "=> Pilihan Tidak Valid!" << endl;
