@@ -348,7 +348,11 @@ void menuSort() {
                 urutkanBerdasarkanNama(entri, jumlahEntri); 
             }
             else if (pilihan == 3) {
-                cout << "=> Mengurutkan Berdasarkan Tahun Penemuan" << endl; 
+                cout << "=> Mengurutkan Berdasarkan Tahun Penemuan" << endl;
+                urutkanBerdasarkanTahun(entri, jumlahEntri);
+                cout << "=> Data setelah diurutkan berdasarkan Tahun" << endl;
+                lihatSeluruhEntri(entri, jumlahEntri);
+                system("pause");
             }
             else if (pilihan == 4) {
                 cout << "=> Mengurutkan Berdasarkan Magnitudo" << endl;

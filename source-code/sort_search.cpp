@@ -40,3 +40,55 @@ void urutkanBerdasarkanNama(BendaLangit arr[], int ukuran) {
     cout << "=> Data berhasil diurutkan!" << endl;
     system("pause");
 }
+
+void urutkanBerdasarkanTahun(BendaLangit arr[], int ukuran) {
+    char urutan;
+    cout << "\n=== URUTKAN BERDASARKAN TAHUN ===" << endl;
+    cout << "Pilih urutan pengurutan:" << endl;
+    cout << "A. Ascending" << endl;
+    cout << "D. Descending" << endl;
+    cout << "Masukkan pilihan (A/D): ";
+    cin >> urutan;
+    cin.ignore();
+    urutan = toupper(urutan);
+    
+    for (int i = 0; i < ukuran - 1; i++) {
+        for (int j = 0; j < ukuran - i - 1; j++) {
+            
+            int thn1;
+            string s1 = (arr + j)->tahunPenemuan;
+            string temp1 = "";
+            for (char c : s1) if (isdigit(c)) temp1 += c; //setiap karakter tahun diperiksa, jika angka, disimpan di temp1
+            if (temp1 != "") {
+                thn1 = stoi(temp1); //ubah tipe data temp1 (string) menjadi int supaya bisa dibandingkan angka tahunnya
+            } else {
+                thn1 = 0; // kalau tahunnya "zaman kuno" (terlama) yg tidak menyimpan angka
+            }
+
+            int thn2; //elemen setelahnya juga diubah ke angka
+            string s2 = (arr + j + 1)->tahunPenemuan;
+            string temp2 = "";
+            for (char c : s2) if (isdigit(c)) temp2 += c;
+            if (temp2 != "") {
+                thn2 = stoi(temp2);
+            } else {
+                thn2 = 0;
+            }
+
+            bool perluTukar = false;
+            if (urutan == 'A') {
+                if (thn1 > thn2) perluTukar = true;
+            } else if (urutan == 'D') {
+                if (thn1 < thn2) perluTukar = true;
+            }
+
+            if (perluTukar) {
+                BendaLangit temp = *(arr + j);
+                *(arr + j) = *(arr + j + 1);
+                *(arr + j + 1) = temp;
+            }
+        }
+    }
+    cout << "=> Data berhasil diurutkan!" << endl;
+    system("pause");
+}
